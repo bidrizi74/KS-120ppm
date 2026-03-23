@@ -4,7 +4,7 @@ var map = new ol.Map({
     renderer: 'canvas',
     layers: layersList,
     view: new ol.View({
-        extent: [60231.565258, 4627787.457594, 439175.692874, 4799263.333101], maxZoom: 12, minZoom: 1, projection: new ol.proj.Projection({
+        extent: [59239.223877, 4584710.162773, 424890.194392, 4845064.316748], maxZoom: 12, minZoom: 1, projection: new ol.proj.Projection({
             code: 'USER:100000',
             //extent: [-20026376.390000, -20048966.100000, 20026376.390000, 20048966.100000],
             units: 'm'})
@@ -12,7 +12,7 @@ var map = new ol.Map({
 });
 
 //initial view - epsg:3857 coordinates if not "Match project CRS"
-map.getView().fit([60231.565258, 4627787.457594, 439175.692874, 4799263.333101], map.getSize());
+map.getView().fit([59239.223877, 4584710.162773, 424890.194392, 4845064.316748], map.getSize());
 
 //full zooms only
 map.getView().setProperties({constrainResolution: true});
@@ -150,8 +150,8 @@ var featureOverlay = new ol.layer.Vector({
     updateWhileInteracting: true // optional, for instant visual feedback
 });
 
-var doHighlight = true;
-var doHover = true;
+var doHighlight = false;
+var doHover = false;
 
 function createPopupField(currentFeature, currentFeatureKeys, layer) {
     var popupText = '';
@@ -501,7 +501,7 @@ var Title = new ol.control.Control({
     element: (() => {
         var titleElement = document.createElement('div');
         titleElement.className = 'top-right-title ol-control';
-        titleElement.innerHTML = '<h2 class="project-title">New CRS of RKS with 120ppm</h2>';
+        titleElement.innerHTML = '<h2 class="project-title">New CRS of RKS - rescaled with 120ppm</h2>';
         return titleElement;
     })(),
     target: 'top-right-container'
@@ -518,7 +518,7 @@ var Abstract = new ol.control.Control({
 
         var linkElement = document.createElement('a');
 
-        if (772 > 240) {
+        if (1226 > 240) {
             linkElement.setAttribute("onmouseenter", "showAbstract()");
             linkElement.setAttribute("onmouseleave", "hideAbstract()");
             linkElement.innerHTML = 'i';
@@ -532,13 +532,13 @@ var Abstract = new ol.control.Control({
             window.showAbstract = function() {
                 linkElement.classList.remove("project-abstract");
                 linkElement.classList.add("project-abstract-uncollapsed");
-                linkElement.innerHTML = 'This study presents a new distortion-optimized coordinate reference system (CRS) for Kosova, defined by a positive scale factor of 1.00012 (120 ppm) at the central meridian (21°E). The system is developed through integrated modelling of topographic height, gravity field, and projection geometry using high-resolution geodetic datasets. This approach ensures improved consistency between ground and map distances, providing a reliable and accurate framework for high-precision surveying, mapping, and GIS applications across the territory of Kosova.<br />Prof.Dr. Bashkim Idrizi<br />bashkim.idrizi@uni-pr.edu<br />Cartogrphy lecturer at the <br />Department of Geomatics, Geoinformation and Earth & Space Observations<br />Faculty of Civil Engineering<br />University of Prishtina <br />www.fin.uni-pr.edu ';
+                linkElement.innerHTML = 'This study presents a distortion-optimized coordinate reference system (CRS) for the Republic of Kosovo, defined by a positive scale factor of 1.00012 at the central meridian (21°E). The system is developed through integrated modelling of topographic height, gravity field, and projection geometry using high-resolution geodetic datasets. The results show that 65.4% of the territory exhibits distortions below <50 ppm, and 91.7% remains below <100 ppm, compared to 0% in the existing Kosovaref01 CRS. The optimized model also enables the computation of national surface area by accounting for terrain/elevation effects, resulting in a value of 10,910 km² (10,909,976,389 m²). This demonstrates a substantial reduction in distortion and improved consistency between ground and map representations, providing a reliable framework for high-precision surveying, larg scale mapping, cadastre and engineering geodesy. The methodology is generalizable and applicable to CRS optimization in other countries. <br /><br />Prof.Dr. Bashkim Idrizi <br />bashkim.idrizi@uni-pr.edu<br />Cartogrphy lecturer at the <br />Department of Geomatics, Geoinformation and Earth & Space Observations<br />Faculty of Civil Engineering<br />University of Prishtina <br />www.fin.uni-pr.edu ';
             }
 
             hideAbstract();
         } else {
             linkElement.classList.add("project-abstract-uncollapsed");
-            linkElement.innerHTML = 'This study presents a new distortion-optimized coordinate reference system (CRS) for Kosova, defined by a positive scale factor of 1.00012 (120 ppm) at the central meridian (21°E). The system is developed through integrated modelling of topographic height, gravity field, and projection geometry using high-resolution geodetic datasets. This approach ensures improved consistency between ground and map distances, providing a reliable and accurate framework for high-precision surveying, mapping, and GIS applications across the territory of Kosova.<br />Prof.Dr. Bashkim Idrizi<br />bashkim.idrizi@uni-pr.edu<br />Cartogrphy lecturer at the <br />Department of Geomatics, Geoinformation and Earth & Space Observations<br />Faculty of Civil Engineering<br />University of Prishtina <br />www.fin.uni-pr.edu ';
+            linkElement.innerHTML = 'This study presents a distortion-optimized coordinate reference system (CRS) for the Republic of Kosovo, defined by a positive scale factor of 1.00012 at the central meridian (21°E). The system is developed through integrated modelling of topographic height, gravity field, and projection geometry using high-resolution geodetic datasets. The results show that 65.4% of the territory exhibits distortions below <50 ppm, and 91.7% remains below <100 ppm, compared to 0% in the existing Kosovaref01 CRS. The optimized model also enables the computation of national surface area by accounting for terrain/elevation effects, resulting in a value of 10,910 km² (10,909,976,389 m²). This demonstrates a substantial reduction in distortion and improved consistency between ground and map representations, providing a reliable framework for high-precision surveying, larg scale mapping, cadastre and engineering geodesy. The methodology is generalizable and applicable to CRS optimization in other countries. <br /><br />Prof.Dr. Bashkim Idrizi <br />bashkim.idrizi@uni-pr.edu<br />Cartogrphy lecturer at the <br />Department of Geomatics, Geoinformation and Earth & Space Observations<br />Faculty of Civil Engineering<br />University of Prishtina <br />www.fin.uni-pr.edu ';
         }
 
         titleElement.appendChild(linkElement);
@@ -551,6 +551,65 @@ map.addControl(Abstract);
 
 //geolocate
 
+	let isTracking = false;
+
+	const geolocateButton = document.createElement('button');
+	geolocateButton.className = 'geolocate-button fa fa-map-marker';
+	geolocateButton.title = 'Geolocalizza';
+
+	const geolocateControl = document.createElement('div');
+	geolocateControl.className = 'ol-unselectable ol-control geolocate';
+	geolocateControl.appendChild(geolocateButton);
+	map.getTargetElement().appendChild(geolocateControl);
+
+	const accuracyFeature = new ol.Feature();
+	const positionFeature = new ol.Feature({
+	  style: new ol.style.Style({
+		image: new ol.style.Circle({
+		  radius: 6,
+		  fill: new ol.style.Fill({ color: '#3399CC' }),
+		  stroke: new ol.style.Stroke({ color: '#fff', width: 2 }),
+		}),
+	  }),
+	});
+
+  const geolocateOverlay = new ol.layer.Vector({
+	  source: new ol.source.Vector({
+		features: [accuracyFeature, positionFeature],
+	  }),
+	});
+	
+	const geolocation = new ol.Geolocation({
+	  projection: map.getView().getProjection(),
+	});
+
+	geolocation.on('change:accuracyGeometry', function () {
+	  accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
+	});
+
+	geolocation.on('change:position', function () {
+	  const coords = geolocation.getPosition();
+	  positionFeature.setGeometry(coords ? new ol.geom.Point(coords) : null);
+	});
+
+	geolocation.setTracking(true);
+
+	function handleGeolocate() {
+	  if (isTracking) {
+		map.removeLayer(geolocateOverlay);
+		isTracking = false;
+	  } else if (geolocation.getTracking()) {
+		map.addLayer(geolocateOverlay);
+		const pos = geolocation.getPosition();
+		if (pos) {
+		  map.getView().setCenter(pos);
+		}
+		isTracking = true;
+	  }
+	}
+
+	geolocateButton.addEventListener('click', handleGeolocate);
+	geolocateButton.addEventListener('touchstart', handleGeolocate);
 
 
 //measurement
