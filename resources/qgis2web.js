@@ -4,7 +4,7 @@ var map = new ol.Map({
     renderer: 'canvas',
     layers: layersList,
     view: new ol.View({
-        extent: [59239.223877, 4584710.162773, 424890.194392, 4845064.316748], maxZoom: 12, minZoom: 1, projection: new ol.proj.Projection({
+        extent: [59239.223877, 4632156.942957, 424890.194392, 4797617.536564], maxZoom: 12, minZoom: 1, projection: new ol.proj.Projection({
             code: 'USER:100000',
             //extent: [-20026376.390000, -20048966.100000, 20026376.390000, 20048966.100000],
             units: 'm'})
@@ -12,7 +12,7 @@ var map = new ol.Map({
 });
 
 //initial view - epsg:3857 coordinates if not "Match project CRS"
-map.getView().fit([59239.223877, 4584710.162773, 424890.194392, 4845064.316748], map.getSize());
+map.getView().fit([59239.223877, 4632156.942957, 424890.194392, 4797617.536564], map.getSize());
 
 //full zooms only
 map.getView().setProperties({constrainResolution: true});
@@ -518,7 +518,7 @@ var Abstract = new ol.control.Control({
 
         var linkElement = document.createElement('a');
 
-        if (1226 > 240) {
+        if (1247 > 240) {
             linkElement.setAttribute("onmouseenter", "showAbstract()");
             linkElement.setAttribute("onmouseleave", "hideAbstract()");
             linkElement.innerHTML = 'i';
@@ -532,13 +532,13 @@ var Abstract = new ol.control.Control({
             window.showAbstract = function() {
                 linkElement.classList.remove("project-abstract");
                 linkElement.classList.add("project-abstract-uncollapsed");
-                linkElement.innerHTML = 'This study presents a distortion-optimized coordinate reference system (CRS) for the Republic of Kosovo, defined by a positive scale factor of 1.00012 at the central meridian (21°E). The system is developed through integrated modelling of topographic height, gravity field, and projection geometry using high-resolution geodetic datasets. The results show that 65.4% of the territory exhibits distortions below <50 ppm, and 91.7% remains below <100 ppm, compared to 0% in the existing Kosovaref01 CRS. The optimized model also enables the computation of national surface area by accounting for terrain/elevation effects, resulting in a value of 10,910 km² (10,909,976,389 m²). This demonstrates a substantial reduction in distortion and improved consistency between ground and map representations, providing a reliable framework for high-precision surveying, larg scale mapping, cadastre and engineering geodesy. The methodology is generalizable and applicable to CRS optimization in other countries. <br /><br />Prof.Dr. Bashkim Idrizi <br />bashkim.idrizi@uni-pr.edu<br />Cartogrphy lecturer at the <br />Department of Geomatics, Geoinformation and Earth & Space Observations<br />Faculty of Civil Engineering<br />University of Prishtina <br />www.fin.uni-pr.edu ';
+                linkElement.innerHTML = 'This study presents a distortion-optimized coordinate reference system (CRS) for the Republic of Kosovo, defined by a positive scale factor of 1.00012 at the central meridian (21°E). The system is developed through integrated modelling of topographic height, gravity field, Earth ellipsoid, and map projection geometry using high-resolution geodetic datasets. The results show that 65.4% of the territory exhibits distortions below <50 ppm, and 91.7% remains below <100 ppm, compared to 0% in the existing Kosovaref01 CRS. The optimized model also enables the computation of national surface area by accounting for terrain/elevation effects, resulting in a value of 10,910 km² (10,909,976,389 m²). This demonstrates a substantial reduction in distortion and improved consistency between ground and map representations, providing a reliable framework for high-precision surveying, larg scale mapping, cadastre and engineering geodesy. The methodology is generalizable and applicable to CRS optimization in other countries. <br /><br />Prof.Dr. Bashkim Idrizi <br />bashkim.idrizi@uni-pr.edu<br />Cartogrphy lecturer at the <br />Department of Geomatics, Geoinformation and Earth & Space Observations<br />Faculty of Civil Engineering<br />University of Prishtina <br />www.fin.uni-pr.edu ';
             }
 
             hideAbstract();
         } else {
             linkElement.classList.add("project-abstract-uncollapsed");
-            linkElement.innerHTML = 'This study presents a distortion-optimized coordinate reference system (CRS) for the Republic of Kosovo, defined by a positive scale factor of 1.00012 at the central meridian (21°E). The system is developed through integrated modelling of topographic height, gravity field, and projection geometry using high-resolution geodetic datasets. The results show that 65.4% of the territory exhibits distortions below <50 ppm, and 91.7% remains below <100 ppm, compared to 0% in the existing Kosovaref01 CRS. The optimized model also enables the computation of national surface area by accounting for terrain/elevation effects, resulting in a value of 10,910 km² (10,909,976,389 m²). This demonstrates a substantial reduction in distortion and improved consistency between ground and map representations, providing a reliable framework for high-precision surveying, larg scale mapping, cadastre and engineering geodesy. The methodology is generalizable and applicable to CRS optimization in other countries. <br /><br />Prof.Dr. Bashkim Idrizi <br />bashkim.idrizi@uni-pr.edu<br />Cartogrphy lecturer at the <br />Department of Geomatics, Geoinformation and Earth & Space Observations<br />Faculty of Civil Engineering<br />University of Prishtina <br />www.fin.uni-pr.edu ';
+            linkElement.innerHTML = 'This study presents a distortion-optimized coordinate reference system (CRS) for the Republic of Kosovo, defined by a positive scale factor of 1.00012 at the central meridian (21°E). The system is developed through integrated modelling of topographic height, gravity field, Earth ellipsoid, and map projection geometry using high-resolution geodetic datasets. The results show that 65.4% of the territory exhibits distortions below <50 ppm, and 91.7% remains below <100 ppm, compared to 0% in the existing Kosovaref01 CRS. The optimized model also enables the computation of national surface area by accounting for terrain/elevation effects, resulting in a value of 10,910 km² (10,909,976,389 m²). This demonstrates a substantial reduction in distortion and improved consistency between ground and map representations, providing a reliable framework for high-precision surveying, larg scale mapping, cadastre and engineering geodesy. The methodology is generalizable and applicable to CRS optimization in other countries. <br /><br />Prof.Dr. Bashkim Idrizi <br />bashkim.idrizi@uni-pr.edu<br />Cartogrphy lecturer at the <br />Department of Geomatics, Geoinformation and Earth & Space Observations<br />Faculty of Civil Engineering<br />University of Prishtina <br />www.fin.uni-pr.edu ';
         }
 
         titleElement.appendChild(linkElement);
